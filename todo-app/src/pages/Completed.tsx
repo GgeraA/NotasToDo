@@ -13,7 +13,7 @@ const Completed = () => {
     (t) => t.subtasks.length > 0 && getProgress(t) === 100
   );
 
-  // Lanzar confetti cuando se completa una tarea
+  // Lanzar confetti cuando se entra a la página con tareas completadas
   useEffect(() => {
     if (completed.length > 0 && !showConfetti) {
       setShowConfetti(true);
@@ -24,7 +24,6 @@ const Completed = () => {
         colors: ['#10B981', '#34D399', '#6EE7B7', '#A7F3D0']
       });
       
-      // Segundo confetti con delay
       setTimeout(() => {
         confetti({
           particleCount: 50,
@@ -42,32 +41,34 @@ const Completed = () => {
         }, 200);
       }, 150);
     }
-  }, [completed.length]);
+  }, [completed.length, showConfetti]);
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="max-w-4xl mx-auto space-y-6"
+      className="w-full max-w-4xl mx-auto px-4 sm:px-6 space-y-6 overflow-x-hidden"
     >
       {/* Header */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500 via-green-500 to-teal-500 p-8 text-white shadow-xl">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500 via-green-500 to-teal-500 p-6 sm:p-8 text-white shadow-xl">
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", damping: 10 }}
           className="relative z-10"
         >
-          <div className="flex items-center gap-3 mb-2">
-            <span className="text-4xl">🏆</span>
-            <h1 className="text-3xl font-bold">Mis Logros</h1>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-2">
+            <div className="flex items-center gap-3">
+              <span className="text-3xl sm:text-4xl">🏆</span>
+              <h1 className="text-2xl sm:text-3xl font-bold">Mis Logros</h1>
+            </div>
           </div>
-          <p className="text-emerald-50 text-lg">
+          <p className="text-emerald-50 text-base sm:text-lg">
             Celebra tus victorias y mantén el impulso
           </p>
         </motion.div>
 
-        {/* Decoración de fondo */}
+        {/* Decoración de fondo - Contenida */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl" />
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-emerald-300/20 rounded-full -ml-24 -mb-24 blur-2xl" />
         
@@ -92,13 +93,13 @@ const Completed = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 
-            dark:border-gray-700 p-12 text-center"
+            dark:border-gray-700 p-8 sm:p-12 text-center"
         >
-          <div className="text-6xl mb-4">🎯</div>
-          <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
+          <div className="text-5xl sm:text-6xl mb-4">🎯</div>
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white mb-2">
             ¡Aún no hay tareas completadas!
           </h3>
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400">
             Cada tarea que completes aparecerá aquí como un logro.
             <br />
             ¡Sigue así, estás en el camino correcto!
@@ -107,7 +108,7 @@ const Completed = () => {
             initial={{ width: 0 }}
             animate={{ width: "100%" }}
             transition={{ delay: 0.5, duration: 1 }}
-            className="mt-8 h-1 bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 rounded-full"
+            className="mt-8 h-1 bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 rounded-full max-w-full"
           />
         </motion.div>
       ) : (
@@ -117,25 +118,25 @@ const Completed = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-950/30 
-              dark:to-green-950/30 backdrop-blur-sm rounded-2xl p-6 border border-emerald-200 
+              dark:to-green-950/30 backdrop-blur-sm rounded-2xl p-5 sm:p-6 border border-emerald-200 
               dark:border-emerald-800 shadow-lg"
           >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-green-500 
-                  flex items-center justify-center shadow-lg">
-                  <span className="text-3xl">🎉</span>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-green-500 
+                  flex items-center justify-center shadow-lg shrink-0">
+                  <span className="text-2xl sm:text-3xl">🎉</span>
                 </div>
                 <div>
-                  <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium uppercase tracking-wider">
+                  <p className="text-xs sm:text-sm text-emerald-600 dark:text-emerald-400 font-medium uppercase tracking-wider">
                     Total de logros
                   </p>
-                  <p className="text-3xl font-bold text-gray-800 dark:text-white">
+                  <p className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white">
                     {completed.length}
                   </p>
                 </div>
               </div>
-              <div className="text-right">
+              <div className="text-left sm:text-right">
                 <p className="text-xs text-gray-500 dark:text-gray-400">
                   ¡Sigue así!
                 </p>
@@ -146,7 +147,7 @@ const Completed = () => {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ delay: i * 0.1 }}
-                      className="text-2xl"
+                      className="text-xl sm:text-2xl"
                     >
                       ⭐
                     </motion.span>
@@ -158,7 +159,7 @@ const Completed = () => {
 
           {/* Lista de tareas completadas */}
           <div className="space-y-4">
-            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider px-1">
+            <h3 className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider px-1">
               Tareas completadas recientemente
             </h3>
             
@@ -172,11 +173,12 @@ const Completed = () => {
                     exit={{ opacity: 0, x: 20 }}
                     transition={{ delay: index * 0.05 }}
                     whileHover={{ scale: 1.01 }}
-                    className="group bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-200 
+                    className="group bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-5 border border-gray-200 
                       dark:border-gray-700 shadow-md hover:shadow-lg transition-all duration-300
-                      bg-gradient-to-r from-white to-gray-50 dark:from-gray-800 dark:to-gray-800/80"
+                      bg-gradient-to-r from-white to-gray-50 dark:from-gray-800 dark:to-gray-800/80
+                      relative overflow-hidden"
                   >
-                    <div className="flex items-start gap-4">
+                    <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
                       <div className="shrink-0">
                         <motion.div
                           initial={{ scale: 0 }}
@@ -190,33 +192,33 @@ const Completed = () => {
                       </div>
                       
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-gray-800 dark:text-white text-lg line-through opacity-75">
+                        <h3 className="font-semibold text-gray-800 dark:text-white text-base sm:text-lg line-through opacity-75 break-words">
                           {task.title}
                         </h3>
                         {task.description && (
-                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 line-through opacity-60">
+                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 line-through opacity-60 break-words">
                             {task.description}
                           </p>
                         )}
                         
                         {/* Badges */}
-                        <div className="flex flex-wrap gap-2 mt-3">
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full 
+                        <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-3">
+                          <span className="inline-flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded-full 
                             bg-emerald-100 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 
                             text-xs font-medium">
                             <span>✅</span>
-                            <span>100% completada</span>
+                            <span>100%</span>
                           </span>
                           
                           {task.category && (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full 
+                            <span className="inline-flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded-full 
                               bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs">
                               <span>📂</span>
-                              <span>{task.category}</span>
+                              <span className="truncate max-w-[100px]">{task.category}</span>
                             </span>
                           )}
                           
-                          <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium
+                          <span className={`inline-flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded-full text-xs font-medium
                             ${task.priority === 'high' 
                               ? 'bg-rose-100 dark:bg-rose-950/50 text-rose-700 dark:text-rose-300' 
                               : task.priority === 'medium'

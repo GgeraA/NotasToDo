@@ -12,7 +12,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300 overflow-x-hidden">
         <Navbar isDark={isDark} onToggleDark={toggle} />
         <main className="max-w-3xl mx-auto px-4 py-8">
           <Routes>
